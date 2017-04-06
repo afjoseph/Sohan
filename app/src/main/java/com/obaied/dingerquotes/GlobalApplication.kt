@@ -13,6 +13,7 @@ import timber.log.Timber
 
 class GlobalApplication : Application() {
     internal var mApplicationComponent: ApplicationComponent? = null
+        get
 
     companion object {
         fun get(context: Context): GlobalApplication {
@@ -23,24 +24,17 @@ class GlobalApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        //Init Timber
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
 
+        //Init application component
         mApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this))
                 .build()
 
         mApplicationComponent?.inject(this)
-    }
-
-    fun getComponent(): ApplicationComponent? {
-        return mApplicationComponent
-    }
-
-    // Needed to replace the component with a test specific one
-    fun setComponent(applicationComponent: ApplicationComponent) {
-        mApplicationComponent = applicationComponent
     }
 }
 

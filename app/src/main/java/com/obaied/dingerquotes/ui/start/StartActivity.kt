@@ -18,7 +18,6 @@ class StartActivity : BaseActivity(), StartMvpView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-
         activityComponent()?.inject(this)
         mPresenter.attachView(this)
 
@@ -28,9 +27,7 @@ class StartActivity : BaseActivity(), StartMvpView {
 
         start_button_run.setOnClickListener {
             d { "start_button_run: onClickListener" }
-
-            val intent = Intent(this, QuoteActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, QuoteActivity::class.java))
         }
     }
 }

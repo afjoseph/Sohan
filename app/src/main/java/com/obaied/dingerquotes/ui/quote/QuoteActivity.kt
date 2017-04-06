@@ -37,5 +37,4 @@ class QuoteActivity : BaseActivity(), QuoteMvpView {
 
         quote_text_quote.text = "Error"
     }
-
 }

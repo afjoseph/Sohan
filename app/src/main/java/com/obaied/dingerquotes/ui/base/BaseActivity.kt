@@ -19,7 +19,7 @@ open class BaseActivity : AppCompatActivity() {
 
         mActivityComponent = DaggerActivityComponent.builder()
                 .activityModule(ActivityModule(this))
-                .applicationComponent(GlobalApplication.get(this).getComponent())
+                .applicationComponent(GlobalApplication.get(this).mApplicationComponent)
                 .build()
     }
 

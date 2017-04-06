@@ -27,10 +27,10 @@ class QuotePresenter
         checkViewAttached()
 
         mCompositeDisposable.add(mDataManager
-                .loadRandomQuote().subscribeOn(Schedulers.io())
+                .loadRandomQuote()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(Consumer<Quote> {
-                    d { "loadRandomQuote(): " }
                     d { "loadRandomQuote(): Received new Quote" }
                     d { "loadRandomQuote(): author: [${it.author}], text: [${it.text}]" }
 
