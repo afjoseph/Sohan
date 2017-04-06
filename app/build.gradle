@@ -1,0 +1,98 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.obaied.dingerquotes"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    final SUPPORT_LIBRARY_VERSION = '25.2.0'
+    final CONSTRAINT_LAYOUT_VERSION = '1.0.2'
+    final RETROFIT_VERSION = '2.2.0'
+    final OKHTTP_VERSION = '3.2.0'
+    final DAGGER_VERSION = '2.4'
+    final HAMCREST_VERSION = '1.3'
+    final ROBOLECTRIC_VERSION = '3.0'
+    final GLIDE_VERSION = '3.7.0'
+    final RXKOTLIN_VERSION = '2.0.0-RC3'
+    final RXANDROID_VERSION = '2.0.1'
+    final TIMBER_VERSION = '4.1.0'
+    final ESPRESSO_VERSION = '2.2.2'
+    final HTEXTVIEW_VERSION = '0.1.1'
+
+    final JUNIT = "junit:junit:4.12"
+    final MOCKITO = "org.mockito:mockito-core:1.10.5"
+
+    //Kotlin stdlib
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    //Android Support
+    compile "com.android.support:support-v4:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:percent:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:customtabs:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support.constraint:constraint-layout:$CONSTRAINT_LAYOUT_VERSION"
+
+    //Retrofit
+    compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
+    compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
+    compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
+
+    //Rx
+    compile "io.reactivex.rxjava2:rxandroid:$RXANDROID_VERSION"
+    compile "io.reactivex.rxjava2:rxkotlin:$RXKOTLIN_VERSION"
+
+    //Dagger
+    compile "com.google.dagger:dagger:$DAGGER_VERSION"
+    kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
+
+    //Misc
+    compile "com.jakewharton.timber:timber:$TIMBER_VERSION"
+    compile "com.github.bumptech.glide:glide:$GLIDE_VERSION"
+    compile "com.hanks:htextview-base:$HTEXTVIEW_VERSION"
+    compile "com.hanks:htextview-typer:$HTEXTVIEW_VERSION"
+
+    // Unit tests
+//    compile JUNIT
+//    compile MOCKITO
+    testCompile JUNIT
+    testCompile MOCKITO
+    testCompile "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
+    testCompile "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
+    testCompile "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
+    testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
+
+    //Espresso
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+}
+repositories {
+    mavenCentral()
+}
