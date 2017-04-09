@@ -8,7 +8,7 @@ import com.obaied.dingerquotes.ui.base.MvpView
  */
 
 interface QuoteMvpView : MvpView {
-    fun onGettingNewQuote(newQuote: Quote)
+    fun showQuote(newQuote: Quote)
 
-    fun showError(throwable: Throwable)
+    fun showError()
 }

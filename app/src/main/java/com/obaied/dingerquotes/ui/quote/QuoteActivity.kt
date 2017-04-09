@@ -5,6 +5,7 @@ import com.obaied.dingerquotes.R
 import com.obaied.dingerquotes.data.model.Quote
 import com.obaied.dingerquotes.ui.base.BaseActivity
 import com.obaied.dingerquotes.util.d
+import com.obaied.dingerquotes.util.e
 import kotlinx.android.synthetic.main.activity_quote.*
 import javax.inject.Inject
 
@@ -18,21 +19,21 @@ class QuoteActivity : BaseActivity(), QuoteMvpView {
         activityComponent()?.inject(this)
         mPresenter.attachView(this)
 
-        mPresenter.loadRandomQuote()
+        mPresenter.getQuote()
 
         quote_button_next.setOnClickListener {
             //TODO: Disable next button until quote arrives
-            mPresenter.loadRandomQuote()
+            mPresenter.getQuote()
         }
     }
 
-    override fun onGettingNewQuote(newQuote: Quote) {
-        d { "onGettingNewQuote{): " }
+    override fun showQuote(newQuote: Quote) {
+        d { "showQuote{): " }
 
         quote_text_quote.animateText("${newQuote.text} \n--  ${newQuote.author}")
     }
 
-    override fun showError(throwable: Throwable) {
+    override fun showError() {
         d { "showError{): " }
 
         quote_text_quote.text = "Error"

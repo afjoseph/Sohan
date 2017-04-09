@@ -5,6 +5,7 @@ import com.obaied.dingerquotes.BuildConfig
 import com.obaied.dingerquotes.data.model.Quote
 import com.obaied.dingerquotes.util.d
 import io.reactivex.Observable
+import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -27,7 +28,7 @@ interface QuoteService {
     }
 
     @GET(ApiSettings.RANDOM_QUOTE)
-    fun loadRandomQuote(): Observable<Quote>
+    fun getQuote(): Single<Quote>
 
     object Creator {
         fun newQuoteService(): QuoteService {
