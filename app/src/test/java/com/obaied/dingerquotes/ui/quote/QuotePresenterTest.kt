@@ -3,7 +3,7 @@ package com.obaied.dingerquotes.ui.quote
 import com.obaied.dingerquotes.data.DataManager
 import com.obaied.dingerquotes.data.model.Quote
 import com.obaied.dingerquotes.util.TestDataFactory
-import com.obaied.dingerquotes.util.TestSchedulerProvider
+import com.obaied.dingerquotes.util.Schedulers.TestSchedulerProvider
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import org.junit.After
