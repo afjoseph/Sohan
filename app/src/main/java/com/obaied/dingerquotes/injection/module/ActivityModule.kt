@@ -3,6 +3,8 @@ package com.obaied.dingerquotes.injection.module
 import android.app.Activity
 import android.content.Context
 import com.obaied.dingerquotes.injection.ActivityContext
+import com.obaied.dingerquotes.util.Schedulers.AppSchedulerProvider
+import com.obaied.dingerquotes.util.Schedulers.SchedulerProvider
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -27,5 +29,10 @@ class ActivityModule(private val mActivity: Activity) {
     @Provides
     fun providesCompositeDisposable(): CompositeDisposable {
         return CompositeDisposable()
+    }
+
+    @Provides
+    fun providesSchedulerProvider(): SchedulerProvider {
+        return AppSchedulerProvider()
     }
 }

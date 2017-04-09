@@ -2,6 +2,7 @@ package com.obaied.dingerquotes.ui.base
 
 import com.obaied.dingerquotes.data.DataManager
 import com.obaied.dingerquotes.ui.base.MvpView
+import com.obaied.dingerquotes.util.Schedulers.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -11,12 +12,16 @@ import javax.inject.Inject
 
 open class BasePresenter<T : MvpView>
 @Inject constructor(dataManager: DataManager,
-                    compositeDisposable: CompositeDisposable) {
+                    compositeDisposable: CompositeDisposable,
+                    schedulerProvider: SchedulerProvider) {
 
     protected var mDataManager: DataManager = dataManager
         private set
 
     protected var mCompositeDisposable = compositeDisposable
+        private set
+
+    protected var mSchedulerProvider = schedulerProvider
         private set
 
     var mvpView: T? = null
