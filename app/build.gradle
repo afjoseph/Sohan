@@ -3,17 +3,17 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
-
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.obaied.dingerquotes"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 18
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "${applicationId}.runner.RxAndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -36,7 +36,7 @@ task createTestResources << {
 }
 
 dependencies {
-    final SUPPORT_LIBRARY_VERSION = '25.2.0'
+    final SUPPORT_LIBRARY_VERSION = '26.0.0-alpha1'
     final CONSTRAINT_LAYOUT_VERSION = '1.0.2'
     final RETROFIT_VERSION = '2.2.0'
     final OKHTTP_VERSION = '3.2.0'
@@ -51,6 +51,7 @@ dependencies {
     final HTEXTVIEW_VERSION = '0.1.1'
     final JUNIT_VERSION = '4.12'
     final MOCKITO2_VERSION = '2.1.0'
+    final SQLBRITE_VERSION = '2.0.0'
 
     //Kotlin stdlib
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -65,6 +66,8 @@ dependencies {
     compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support.constraint:constraint-layout:$CONSTRAINT_LAYOUT_VERSION"
+    compile "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
 
     //Retrofit
     compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
@@ -73,9 +76,15 @@ dependencies {
     compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
+    //SqlBrite
+    compile 'com.squareup.sqlbrite2:sqlbrite-kotlin:2.0.0'
+
     //Rx
     compile "io.reactivex.rxjava2:rxandroid:$RXANDROID_VERSION"
     compile "io.reactivex.rxjava2:rxkotlin:$RXKOTLIN_VERSION"
+
+    //Android-job
+    compile 'com.evernote:android-job:1.1.11'
 
     //Dagger
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
@@ -87,15 +96,25 @@ dependencies {
     compile "com.github.bumptech.glide:glide:$GLIDE_VERSION"
     compile "com.hanks:htextview-base:$HTEXTVIEW_VERSION"
     compile "com.hanks:htextview-typer:$HTEXTVIEW_VERSION"
+    compile project(':colourslibrary')
+    compile 'com.karumi:dexter:4.1.0'
 
     // Unit tests
 //    compile JUNIT
 //    compile MOCKITO
     testCompile "junit:junit:$JUNIT_VERSION"
-    testCompile "org.mockito:mockito-core:$MOCKITO2_VERSION"
-    testCompile "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
-    testCompile "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
-    testCompile "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
+    testCompile 'com.nhaarman:mockito-kotlin:1.4.0'
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testCompile "org.easytesting:fest-assert-core:2.0M10"
+    testCompile 'org.robolectric:robolectric:3.4.2'
+
+//    testCompile "org.mockito:mockito-core:$MOCKITO2_VERSION"
+//    testCompile "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
+//    testCompile "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
+//    testCompile "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
+
+//    testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1' //To make Robolectric run with API 24
 //    testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
 
     //Espresso

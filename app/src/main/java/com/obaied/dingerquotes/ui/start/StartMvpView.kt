@@ -8,4 +8,9 @@ import com.obaied.dingerquotes.ui.base.MvpView
  */
 
 interface StartMvpView : MvpView {
+    fun showQuotes(quotes: List<Quote>)
+    fun showEmpty()
+    fun showError(error: String)
+    fun showProgress()
+    fun hideProgress()
 }

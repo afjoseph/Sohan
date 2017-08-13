@@ -13,17 +13,30 @@ import com.obaied.dingerquotes.injection.module.ActivityModule
 
 open class BaseActivity : AppCompatActivity() {
     private var mActivityComponent: ActivityComponent? = null
+    protected var isAttachToWindow = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mActivityComponent = DaggerActivityComponent.builder()
                 .activityModule(ActivityModule(this))
-                .applicationComponent(GlobalApplication.get(this).mApplicationComponent)
+                .applicationComponent(GlobalApplication.globalApp.mApplicationComponent)
                 .build()
     }
 
     fun activityComponent(): ActivityComponent? {
         return mActivityComponent
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+
+        isAttachToWindow = true
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+
+        isAttachToWindow = false
     }
 }

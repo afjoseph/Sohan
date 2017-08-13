@@ -3,8 +3,12 @@ package com.obaied.dingerquotes.injection.component
 import android.app.Application
 import android.content.Context
 import com.obaied.dingerquotes.GlobalApplication
+import com.obaied.dingerquotes.MyJobCreator
 import com.obaied.dingerquotes.data.DataManager
+import com.obaied.dingerquotes.data.local.DatabaseHelper
 import com.obaied.dingerquotes.data.remote.QuoteService
+import com.obaied.dingerquotes.data.remote.RandomImageService
+import com.obaied.dingerquotes.data.remote.ServiceHelper
 import dagger.Component
 import com.obaied.dingerquotes.injection.ForApplication
 import com.obaied.dingerquotes.injection.module.ApplicationModule
@@ -24,4 +28,12 @@ interface ApplicationComponent {
     fun dataManager(): DataManager
 
     fun quoteService(): QuoteService
+
+    fun randomImageService(): RandomImageService
+
+    fun databaseHelper(): DatabaseHelper
+
+    fun jobCreator(): MyJobCreator
+
+    fun ServiceHelper(): ServiceHelper
 }

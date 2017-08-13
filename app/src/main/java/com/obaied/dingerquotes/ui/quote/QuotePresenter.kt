@@ -1,15 +1,13 @@
 package com.obaied.dingerquotes.ui.quote
 
 import com.obaied.dingerquotes.data.DataManager
-import com.obaied.dingerquotes.data.model.Quote
+import com.obaied.dingerquotes.data.model.RandomImage
 import com.obaied.dingerquotes.ui.base.BasePresenter
-import com.obaied.dingerquotes.util.Schedulers.AppSchedulerProvider
 import com.obaied.dingerquotes.util.Schedulers.SchedulerProvider
 import com.obaied.dingerquotes.util.d
-import com.obaied.dingerquotes.util.e
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 /**
@@ -22,33 +20,29 @@ class QuotePresenter
                     schedulerProvider: SchedulerProvider)
     : BasePresenter<QuoteMvpView>(dataManager, compositeDisposable, schedulerProvider) {
 
-    fun getQuote() {
-        d { "getQuote(): " }
-
+    fun fetchRandomImage() {
+        d { "fetchRandomImage(): " }
         checkViewAttached()
 
-        mCompositeDisposable.add(mDataManager.getQuote()
+        mCompositeDisposable.add(mDataManager.fetchRandomImage()
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
-                .subscribe(Consumer<Quote> {
-                    d { "getQuote(): Received new Quote" }
-                    d { "getQuote(): author: [${it.author}], text: [${it.text}]" }
-
-                    if (!isViewAttached) {
-                        return@Consumer
+                .subscribe({ t: RandomImage? ->
+                    if (t == null
+                            || t.url.isNullOrEmpty()) {
+                        return@subscribe
                     }
 
-                    mvpView?.showQuote(it)
+                    mvpView?.showImage(t.url)
+                }, { t: Throwable ->
 
-                }, Consumer<Throwable> {
-                    e(it, { "getQuote(): Received error" })
-
-                    if (!isViewAttached) {
-                        return@Consumer
+                    var error: String = "error "
+                    if (t is SocketTimeoutException) {
+                        error += " | Timed out | "
                     }
+                    error += t.message
 
-                    mvpView?.showError()
-                }
-                ))
+                    mvpView?.showError(error)
+                }))
     }
 }

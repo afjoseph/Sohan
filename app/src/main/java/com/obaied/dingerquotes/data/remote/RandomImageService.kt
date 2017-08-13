@@ -1,39 +1,32 @@
 package com.obaied.dingerquotes.data.remote
 
 import com.google.gson.Gson
-import com.obaied.dingerquotes.data.model.Quote
-import com.obaied.dingerquotes.util.d
-import io.reactivex.Observable
+import com.obaied.dingerquotes.data.model.RandomImage
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
 
 /**
- * Created by ab on 02/04/2017.
+ * Created by ab on 10.08.17.
  */
-
-interface QuoteService {
+interface RandomImageService {
     companion object {
-        const val ENDPOINT = "http://api.forismatic.com/api/1.0/"
+        const val ENDPOINT = "http://www.splashbase.co/api/v1/"
     }
 
     object ApiSettings {
-        const val QUOTE = "?method=getQuote&format=json&lang=en"
+        const val RANDOM_IMAGE = "images/random"
     }
 
-    @GET(ApiSettings.QUOTE)
-    fun getQuote(@Query("key") seed: String): Single<Quote>
+    @GET(ApiSettings.RANDOM_IMAGE)
+    fun getRandomImage(): Single<RandomImage>
 
     object Builder {
-        fun newService(): QuoteService {
-            d { "newService(): " }
-
+        fun newService(): RandomImageService {
             val retrofitBuilder = Retrofit.Builder()
-                    .baseUrl(QuoteService.ENDPOINT)
+                    .baseUrl(RandomImageService.ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create(Gson()))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
@@ -48,10 +41,9 @@ interface QuoteService {
 
             return retrofitBuilder
                     .build()
-                    .create(QuoteService::class.java)
+                    .create(RandomImageService::class.java)
         }
     }
 
 
 }
-

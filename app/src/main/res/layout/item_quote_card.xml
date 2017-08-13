@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <ImageView
+        android:id="@+id/item_quote_imageview_shade"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@android:color/black"
+        />
+
+    <TextView
+        android:id="@+id/item_quote_textview_quote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:maxLines="3"
+        android:paddingBottom="46dp"
+        android:paddingEnd="46dp"
+        android:paddingStart="16dp"
+        android:paddingTop="46dp"
+        android:text="contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney "
+        android:textColor="@color/gray"
+        android:textSize="28sp"
+        android:textStyle="italic"/>
+
+    <!--<TextView-->
+    <!--android:id="@+id/item_quote_textview_author"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:text="Hemingway"/>-->
+
+</FrameLayout>

@@ -1,5 +1,6 @@
 package com.obaied.dingerquotes.ui.quote
 
+import android.content.Intent
 import com.obaied.dingerquotes.data.model.Quote
 import com.obaied.dingerquotes.ui.base.MvpView
 
@@ -8,7 +9,6 @@ import com.obaied.dingerquotes.ui.base.MvpView
  */
 
 interface QuoteMvpView : MvpView {
-    fun showQuote(newQuote: Quote)
-
-    fun showError()
+    fun showImage(imageUrl: String)
+    fun showError(error: String)
 }
