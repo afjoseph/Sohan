@@ -9,7 +9,7 @@ import com.obaied.dingerquotes.data.model.Quote
 import com.obaied.dingerquotes.data.model.RandomImage
 import com.obaied.dingerquotes.data.remote.QuoteService
 import com.obaied.dingerquotes.data.remote.RandomImageService
-import com.obaied.dingerquotes.data.remote.ServiceHelper
+import com.obaied.dingerquotes.data.remote.ServicesHelper
 import com.obaied.dingerquotes.util.DummyDataFactory
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -24,7 +24,7 @@ class DataManagerTest {
     lateinit var mockDatabaseHelper: DatabaseHelper
     lateinit var mockQuoteService: QuoteService
     lateinit var mockRandomImageService: RandomImageService
-    lateinit var mockServiceHelper: ServiceHelper
+    lateinit var mockServicesHelper: ServicesHelper
     private lateinit var dataManager: DataManager
 
     @Before
@@ -32,8 +32,8 @@ class DataManagerTest {
         mockDatabaseHelper = mock<DatabaseHelper>()
         mockQuoteService = mock<QuoteService>()
         mockRandomImageService = mock<RandomImageService>()
-        mockServiceHelper = mock<ServiceHelper>()
-        dataManager = DataManager(mockQuoteService, mockRandomImageService, mockDatabaseHelper, mockServiceHelper)
+        mockServicesHelper = mock<ServicesHelper>()
+        dataManager = DataManager(mockQuoteService, mockRandomImageService, mockDatabaseHelper, mockServicesHelper)
     }
 
     @Test
@@ -52,7 +52,7 @@ class DataManagerTest {
         whenever(mockDatabaseHelper.setQuotesToDb(quotes))
                 .thenReturn(Observable.fromIterable(quotes))
 
-        whenever(mockServiceHelper.getListOfQuotes(any<Int>()))
+        whenever(mockServicesHelper.getListOfQuotes(any<Int>()))
                 .thenReturn(listOfSingleQuotes)
 
         val testObserver = TestObserver<Quote>()

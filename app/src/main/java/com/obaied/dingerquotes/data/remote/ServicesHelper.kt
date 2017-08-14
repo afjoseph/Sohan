@@ -10,7 +10,7 @@ import javax.inject.Singleton
  * Created by ab on 13.08.17.
  */
 @Singleton
-class ServiceHelper
+class ServicesHelper
 @Inject constructor(val quoteService: QuoteService,
                     val randomImageService: RandomImageService) {
     private val random = Random()

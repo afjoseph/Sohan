@@ -33,13 +33,8 @@ class DatabaseHelperTest {
             TestSchedulerProvider())
 
     @Test
-    fun basicTest() {
-//        val activity = Robolectric.setupActivity(StartActivity::class.java)
-//        val textView = activity.start_recyclerview as RecyclerView
-//
-//        Assert.assertEquals(1, 1)
-//        Assert.assertNotNull(textView)
-//        assertThat(textView.text).isEqualTo("Hello World!")
+    fun verifyTestsWork() {
+        assert(true)
     }
 
     @Test

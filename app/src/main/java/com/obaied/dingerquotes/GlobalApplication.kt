@@ -1,14 +1,12 @@
 package com.obaied.dingerquotes
 
 import android.app.Application
-import com.evernote.android.job.JobManager
 import com.obaied.dingerquotes.injection.component.ApplicationComponent
 import com.obaied.dingerquotes.injection.component.DaggerApplicationComponent
 import com.obaied.dingerquotes.injection.module.ApplicationModule
 import timber.log.Timber
 import javax.inject.Inject
 import android.os.StrictMode
-
 
 /**
  * Created by ab on 02/04/2017.
@@ -17,8 +15,6 @@ import android.os.StrictMode
 class GlobalApplication : Application() {
     internal var mApplicationComponent: ApplicationComponent? = null
         get
-
-    @Inject lateinit var jobCreator: MyJobCreator
 
     override fun onCreate() {
         super.onCreate()

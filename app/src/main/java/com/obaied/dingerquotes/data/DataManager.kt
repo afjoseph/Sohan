@@ -5,10 +5,9 @@ import com.obaied.dingerquotes.data.model.Quote
 import com.obaied.dingerquotes.data.model.RandomImage
 import com.obaied.dingerquotes.data.remote.QuoteService
 import com.obaied.dingerquotes.data.remote.RandomImageService
-import com.obaied.dingerquotes.data.remote.ServiceHelper
+import com.obaied.dingerquotes.data.remote.ServicesHelper
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,13 +20,13 @@ class DataManager
 @Inject constructor(val quoteService: QuoteService,
                     val randomImageService: RandomImageService,
                     val databaseHelper: DatabaseHelper,
-                    val serviceHelper: ServiceHelper) {
+                    val servicesHelper: ServicesHelper) {
     fun fetchQuotesFromDb(limit: Int): Observable<List<Quote>> {
         return databaseHelper.fetchQuotesFromDb(limit)
     }
 
     fun fetchQuotesFromApi(limit: Int): Observable<Quote> {
-        val listOfSingleQuotes = serviceHelper.getListOfQuotes(limit)
+        val listOfSingleQuotes = servicesHelper.getListOfQuotes(limit)
 
         val observable: Observable<Quote> = Observable.create<List<Quote>> {
             val allQuotes = listOfSingleQuotes

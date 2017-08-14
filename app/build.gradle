@@ -12,7 +12,6 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner "${applicationId}.runner.RxAndroidJUnitRunner"
     }
     buildTypes {
@@ -23,18 +22,6 @@ android {
     }
 }
 
-task createTestResources << {
-    def mockMakerFile = new File("$projectDir/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker")
-    if (System.env.MOCK_MAKER != null) {
-        logger.info("Using MockMaker ${System.env.MOCK_MAKER}")
-        mockMakerFile.parentFile.mkdirs()
-        mockMakerFile.createNewFile()
-        mockMakerFile.write(System.env.MOCK_MAKER)
-    } else {
-        logger.info("Using default MockMaker")
-    }
-}
-
 dependencies {
     final SUPPORT_LIBRARY_VERSION = '26.0.0-alpha1'
     final CONSTRAINT_LAYOUT_VERSION = '1.0.2'
@@ -42,7 +29,7 @@ dependencies {
     final OKHTTP_VERSION = '3.2.0'
     final DAGGER_VERSION = '2.4'
     final HAMCREST_VERSION = '1.3'
-    final ROBOLECTRIC_VERSION = '3.0'
+    final ROBOLECTRIC_VERSION = '3.4.2'
     final GLIDE_VERSION = '3.7.0'
     final RXKOTLIN_VERSION = '2.0.0-RC3'
     final RXANDROID_VERSION = '2.0.1'
@@ -52,6 +39,7 @@ dependencies {
     final JUNIT_VERSION = '4.12'
     final MOCKITO2_VERSION = '2.1.0'
     final SQLBRITE_VERSION = '2.0.0'
+    final DEXTER_VERSION = '4.1.0'
 
     //Kotlin stdlib
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -77,14 +65,11 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
     //SqlBrite
-    compile 'com.squareup.sqlbrite2:sqlbrite-kotlin:2.0.0'
+    compile "com.squareup.sqlbrite2:sqlbrite-kotlin:$SQLBRITE_VERSION"
 
     //Rx
     compile "io.reactivex.rxjava2:rxandroid:$RXANDROID_VERSION"
     compile "io.reactivex.rxjava2:rxkotlin:$RXKOTLIN_VERSION"
-
-    //Android-job
-    compile 'com.evernote:android-job:1.1.11'
 
     //Dagger
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
@@ -94,28 +79,16 @@ dependencies {
     //Misc
     compile "com.jakewharton.timber:timber:$TIMBER_VERSION"
     compile "com.github.bumptech.glide:glide:$GLIDE_VERSION"
-    compile "com.hanks:htextview-base:$HTEXTVIEW_VERSION"
-    compile "com.hanks:htextview-typer:$HTEXTVIEW_VERSION"
     compile project(':colourslibrary')
-    compile 'com.karumi:dexter:4.1.0'
+    compile "com.karumi:dexter:$DEXTER_VERSION"
 
     // Unit tests
-//    compile JUNIT
-//    compile MOCKITO
     testCompile "junit:junit:$JUNIT_VERSION"
     testCompile 'com.nhaarman:mockito-kotlin:1.4.0'
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testCompile "org.easytesting:fest-assert-core:2.0M10"
-    testCompile 'org.robolectric:robolectric:3.4.2'
-
-//    testCompile "org.mockito:mockito-core:$MOCKITO2_VERSION"
-//    testCompile "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
-//    testCompile "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
-//    testCompile "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
-
-//    testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1' //To make Robolectric run with API 24
-//    testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
+    testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
 
     //Espresso
     androidTestCompile("com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION", {
