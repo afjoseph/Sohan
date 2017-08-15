@@ -25,7 +25,7 @@ The idea is to be able to compartmentalize every aspect of the project to small,
 
 The following should be familiar to those familiar with MVVM, MVC, or MVP architectures.
 
-### UI: Activities, presenters and MvpViews
+### UI: Activities, Presenters and MvpViews
 The UI is a very straight-forward implementation of MVP architecture.
 
 * _Activities_ is the one responsible for handling pretty much all initializations and UI interactions.
@@ -52,7 +52,7 @@ The rest of the architecture would deal with how to handle the data using the _D
 P.S: I primarily follow a *no-fragment all-activity* approach so I wouldn't have to worry about where to put the _presenter_ instance if I have one activity and five fragments, each requiring their own API calls.
 
 
-### Data: The overarching *DataManager*
+### Data: The Overarching *DataManager*
 _DataManager_ is a singleton class that handles all the necessary data operations whether its local or remote. 
 By _Local_, I mean relating to an already existing database on the device. 
 By _Remote_, I mean relating to an API or something that would require a network call
