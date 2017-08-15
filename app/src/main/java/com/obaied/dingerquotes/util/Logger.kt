@@ -7,6 +7,7 @@ import timber.log.Timber
 
 /**
  * Created by ab on 04/04/2017.
+ * Credits to https://github.com/PaulWoitaschek/Slimber
  */
 
 /** Invokes an action if any trees are planted */
