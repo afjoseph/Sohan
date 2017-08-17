@@ -4,10 +4,22 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.GlideDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.obaied.colours.Colour
 import com.obaied.dingerquotes.R
 import com.obaied.dingerquotes.data.model.Quote
+import com.obaied.dingerquotes.util.DisplayMetricsUtil
+import com.obaied.dingerquotes.util.d
+import com.squareup.picasso.Callback
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_quote_card.view.*
+import java.lang.Exception
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -17,56 +29,37 @@ import javax.inject.Inject
 class QuotesAdapter
 @Inject constructor()
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    companion object {
-        const val VIEW_TYPE_PROGRESS: Int = 333
-    }
-
-    var mQuotesList: MutableList<Quote> = mutableListOf()
-    var mClickListener: ClickListener? = null
+    var quotesList: MutableList<Quote> = mutableListOf()
+    var clickListener: ClickListener? = null
+    val savedImageTags = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-//        if (viewType == VIEW_TYPE_PROGRESS) {
-//            val itemView = LayoutInflater.from(parent?.context)
-//                    .inflate(R.layout.layout_progress_bar, parent, false)
-//            return ProgressViewHolder(itemView)
-//        } else {
         val itemView = LayoutInflater.from(parent?.context)
                 .inflate(R.layout.item_quote_card, parent, false)
 
         return QuotesViewHolder(itemView)
-//        }
     }
 
     override fun getItemCount(): Int {
-        return mQuotesList.size
-//        return if (mIsAppending) mQuotesList.size + 1 else mQuotesList.size
+        return quotesList.size
     }
 
     override fun getItemViewType(position: Int): Int {
-//        return if (mIsAppending && position >= itemCount) VIEW_TYPE_PROGRESS else
         return super.getItemViewType(position)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-//        if (holder is ProgressViewHolder) {
-//            holder.showProgress()
-//        } else if (holder is QuotesViewHolder) {
         holder as QuotesViewHolder
-        val quote = mQuotesList[position]
+        val quote = quotesList[position]
         holder.bindQuote(quote)
-//        }
-//        else {
-//           val progressHolder = holder as ProgressViewHolder
-//            progressHolder?.showProgress()
-//        }
     }
 
     inner class QuotesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindQuote(quote: Quote) {
             itemView.item_quote_textview_quote.text = quote.text
-            itemView.setOnClickListener { mClickListener!!.onClick(quote) }
+            itemView.setOnClickListener { clickListener!!.onClick(quote) }
 
-            //Colorfilter value is saved in memory, not synced with DB
+//            Colorfilter value is saved in memory, not synced with DB
             val bgColor: Int
             if (quote.colorFilter != null) {
                 bgColor = quote.colorFilter as Int
@@ -78,19 +71,36 @@ class QuotesAdapter
             itemView.item_quote_textview_quote.setTextColor(Colour.blackOrWhiteContrastingColor(bgColor))
             quote.colorFilter = bgColor
 
+            val (width, height) = DisplayMetricsUtil.getScreenMetrics()
 
-//            Glide.with(itemView.context)
-//                    .load("https://unsplash.it/200/300/?random")
-//                    .centerCrop()
-//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                    .skipMemoryCache(true)
-//                    .placeholder(R.drawable.design_password_eye)
-//                    .into(itemView.item_quote_imageview_shade)
-        }
-    }
+            Glide.with(itemView.context)
+                    .load("https://unsplash.it/$width/$height/?image=${quote.imageTag}")
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .crossFade()
+                    .listener(object : RequestListener<String, GlideDrawable> {
+                        override fun onResourceReady(resource: GlideDrawable?, model: String?, target: Target<GlideDrawable>?, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
+                            itemView.item_quote_imageview_shade.setColorFilter(Colour.BLACK)
+                            itemView.item_quote_textview_quote.setTextColor(Colour.WHITE)
+                            savedImageTags.add(quote.imageTag!!)
+                            return false
+                        }
 
-    inner class ProgressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun showProgress() {
+                        override fun onException(e: Exception?, model: String?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
+                            if (savedImageTags.size <= 1) {
+                                return false
+                            }
+
+                            val randomTag = savedImageTags[Random().nextInt(savedImageTags.size)]
+                            Glide.with(itemView.context)
+                                    .load("https://unsplash.it/$width/$height/?image=$randomTag")
+                                    .into(itemView.item_quote_imageview_cover)
+
+                            return false
+                        }
+
+                    })
+                    .into(itemView.item_quote_imageview_cover)
 
         }
     }

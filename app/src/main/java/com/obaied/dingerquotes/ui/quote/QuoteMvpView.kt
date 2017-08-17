@@ -9,6 +9,4 @@ import com.obaied.dingerquotes.ui.base.MvpView
  */
 
 interface QuoteMvpView : MvpView {
-    fun showImage(imageUrl: String)
-    fun showError(error: String)
 }

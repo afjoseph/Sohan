@@ -19,30 +19,4 @@ class QuotePresenter
                     compositeDisposable: CompositeDisposable,
                     schedulerProvider: SchedulerProvider)
     : BasePresenter<QuoteMvpView>(dataManager, compositeDisposable, schedulerProvider) {
-
-    fun fetchRandomImage() {
-        d { "fetchRandomImage(): " }
-        checkViewAttached()
-
-        mCompositeDisposable.add(mDataManager.fetchRandomImage()
-                .subscribeOn(mSchedulerProvider.io())
-                .observeOn(mSchedulerProvider.ui())
-                .subscribe({ t: RandomImage? ->
-                    if (t == null
-                            || t.url.isNullOrEmpty()) {
-                        return@subscribe
-                    }
-
-                    mvpView?.showImage(t.url)
-                }, { t: Throwable ->
-
-                    var error: String = "error "
-                    if (t is SocketTimeoutException) {
-                        error += " | Timed out | "
-                    }
-                    error += t.message
-
-                    mvpView?.showError(error)
-                }))
-    }
 }

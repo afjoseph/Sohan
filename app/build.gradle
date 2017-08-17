@@ -79,6 +79,7 @@ dependencies {
     //Misc
     compile "com.jakewharton.timber:timber:$TIMBER_VERSION"
     compile "com.github.bumptech.glide:glide:$GLIDE_VERSION"
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile project(':colourslibrary')
     compile "com.karumi:dexter:$DEXTER_VERSION"
 

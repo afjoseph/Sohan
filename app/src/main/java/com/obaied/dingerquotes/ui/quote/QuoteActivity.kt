@@ -1,7 +1,6 @@
 package com.obaied.dingerquotes.ui.quote
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -18,10 +17,10 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
-import com.obaied.colours.Colour
 import com.obaied.dingerquotes.R
 import com.obaied.dingerquotes.data.model.Quote
 import com.obaied.dingerquotes.ui.base.BaseActivity
+import com.obaied.dingerquotes.util.DisplayMetricsUtil
 import com.obaied.dingerquotes.util.e
 import kotlinx.android.synthetic.main.activity_quote.*
 import javax.inject.Inject
@@ -40,15 +39,14 @@ class QuoteActivity : BaseActivity(), QuoteMvpView {
         quote = intent.getParcelableExtra<Quote>(EXTRA_QUOTE)
                 ?: throw IllegalArgumentException("Quote activity requires a quote instance")
 
-        val colorFilter = intent.getIntExtra(EXTRA_COLOR_FILTER, Colour.getRandomNiceColor())
+        val imageTag: String? = intent.getStringExtra(EXTRA_IMAGE_TAG)
+        val colorFilter: Int? = intent.getIntExtra(EXTRA_COLOR_FILTER, 0)
 
         quote_fap.setOnClickListener {
             if (quote != null) shareQuote()
         }
 
-        mPresenter.fetchRandomImage()
-
-        fillQuote(quote!!, colorFilter)
+        fillQuote(quote!!, imageTag, colorFilter)
     }
 
     //TODO: put both takeScreenshot() and shareQuote() inside Presenter
@@ -94,44 +92,35 @@ class QuoteActivity : BaseActivity(), QuoteMvpView {
                 }).check()
     }
 
-    private fun fillQuote(quote: Quote, colorFilter: Int) {
-//        quote_imageview_shade.setColorFilter(colorFilter)
-
+    private fun fillQuote(quote: Quote, imageTag: String?, colorFilter: Int?) {
         quote_textview_author.text = quote.author
         quote_textview_quote.text = quote.text
-//        quote_textview_quote.setTextColor(Colour.blackOrWhiteContrastingColor(colorFilter))
-//
-//        val (width, height) = DisplayMetricsUtil.getScreenMetrics()
-//        Glide.with(this)
-//                .load("https://unsplash.it/g/600/400")
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .placeholder(R.drawable.abc_ab_share_pack_mtrl_alpha)
-//                .into(quote_imageview_shade)
-    }
 
-    override fun showImage(imageUrl: String) {
-        if (!isAttachToWindow) return
+//        (colorFilter != 0).let {
+//            quote_imageview_shade.setColorFilter(colorFilter)
+//            quote_textview_quote.setTextColor(Colour.blackOrWhiteContrastingColor(colorFilter))
+//        }
 
-        Glide.with(this)
-                .load(imageUrl)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
-                .into(quote_imageview_cover)
-    }
-
-    //TODO: maybe do something here??
-    override fun showError(error: String) {
-
+        imageTag?.let {
+            val (width, height) = DisplayMetricsUtil.getScreenMetrics()
+            Glide.with(this)
+                    .load("https://unsplash.it/$width/$height/?image=$imageTag")
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                    .crossFade()
+                    .into(quote_imageview_cover)
+        }
     }
 
     companion object {
         val EXTRA_QUOTE = "com.obaied.dingerquotes.ui.quote.EXTRA_QUOTE"
+        val EXTRA_IMAGE_TAG = "com.obaied.dingerquotes.ui.quote.EXTRA_IMAGE_TAG"
         val EXTRA_COLOR_FILTER = "com.obaied.dingerquotes.ui.quote.EXTRA_COLOR_FILTER"
 
         fun getStartIntent(context: Context, quote: Quote): Intent {
             val intent = Intent(context, QuoteActivity::class.java)
             intent.putExtra(EXTRA_QUOTE, quote)
-            intent.putExtra(EXTRA_COLOR_FILTER, quote.colorFilter)
+            intent.putExtra(EXTRA_IMAGE_TAG, quote.imageTag!!)
+            intent.putExtra(EXTRA_COLOR_FILTER, quote.colorFilter!!)
 
             return intent
         }

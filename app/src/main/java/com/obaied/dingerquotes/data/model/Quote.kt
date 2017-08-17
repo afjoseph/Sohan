@@ -11,8 +11,8 @@ import com.google.gson.annotations.SerializedName
 data class Quote(
         @SerializedName("quoteAuthor") val author: String,
         @SerializedName("quoteText") val text: String,
-        var colorFilter: Int? = null, //Don't sync with DB or parcel it, just keep it saved in memory
-        var imageUrl: String? = null //Don't sync with DB or parcel it, just keep it saved in memory
+        var imageTag: String? = null, //Don't sync with DB or parcel it, just keep it saved in memory
+        var colorFilter: Int? = null //Don't sync with DB or parcel it, just keep it saved in memory
 ) : Parcelable {
 
 

@@ -43,26 +43,26 @@ class QuotePresenterTest {
     fun verifyTestsWork() {
         assert(true)
     }
-
-    @Test
-    fun fetchRandomImage_normal() {
-        val randomImage = DummyDataFactory.makeRandomImage()
-
-        whenever(mockDataManager.fetchRandomImage())
-                .thenReturn(Single.just(randomImage))
-
-        quotePresenter.fetchRandomImage()
-        verify(mockQuoteMvpView).showImage(randomImage.url)
-        verify(mockQuoteMvpView, never()).showError(any<String>())
-    }
-
-    @Test
-    fun fetchRandomImage_fail() {
-        whenever(mockDataManager.fetchRandomImage())
-                .thenReturn(Single.error(RuntimeException()))
-
-        quotePresenter.fetchRandomImage()
-        verify(mockQuoteMvpView).showError(any<String>())
-        verify(mockQuoteMvpView, never()).showImage(any())
-    }
+//
+//    @Test
+//    fun fetchRandomImage_normal() {
+//        val randomImage = DummyDataFactory.makeRandomImage()
+//
+//        whenever(mockDataManager.fetchRandomImage())
+//                .thenReturn(Single.just(randomImage))
+//
+//        quotePresenter.fetchRandomImage()
+//        verify(mockQuoteMvpView).showImage(randomImage.url)
+//        verify(mockQuoteMvpView, never()).showError(any<String>())
+//    }
+//
+//    @Test
+//    fun fetchRandomImage_fail() {
+//        whenever(mockDataManager.fetchRandomImage())
+//                .thenReturn(Single.error(RuntimeException()))
+//
+//        quotePresenter.fetchRandomImage()
+//        verify(mockQuoteMvpView).showError(any<String>())
+//        verify(mockQuoteMvpView, never()).showImage(any())
+//    }
 }

@@ -11,8 +11,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class ServicesHelper
-@Inject constructor(val quoteService: QuoteService,
-                    val randomImageService: RandomImageService) {
+@Inject constructor(val quoteService: QuoteService) {
     private val random = Random()
     private val RANDOM_SEED_MAX = Int.MAX_VALUE
 
@@ -24,5 +23,4 @@ class ServicesHelper
 
         return obsList
     }
-
 }

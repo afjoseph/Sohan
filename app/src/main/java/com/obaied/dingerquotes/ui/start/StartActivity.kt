@@ -36,11 +36,11 @@ class StartActivity : BaseActivity(), StartMvpView {
 
         setupViews()
 
-        mPresenter.subscribeToDbToFetchQuotes(QUOTE_LIMIT_PER_PAGE)
+        mPresenter.subscribeToDbToFetchQuotes()
     }
 
     private fun setupViews() {
-        mQuotesAdapter.mClickListener = object : QuotesAdapter.ClickListener {
+        mQuotesAdapter.clickListener = object : QuotesAdapter.ClickListener {
             override fun onClick(quote: Quote) {
                 startActivity(QuoteActivity.getStartIntent(this@StartActivity, quote))
             }
@@ -50,7 +50,8 @@ class StartActivity : BaseActivity(), StartMvpView {
         start_recyclerview.layoutManager = layoutManager
         start_recyclerview.setHasFixedSize(true)
         start_recyclerview.adapter = mQuotesAdapter
-        start_recyclerview.addOnScrollListener(object : InfiniteScrollListener(QUOTE_LIMIT_PER_PAGE - 20, 1, layoutManager) {
+//        start_recyclerview.addOnScrollListener(object : InfiniteScrollListener(QUOTE_LIMIT_PER_PAGE - ((QUOTE_LIMIT_PER_PAGE * 0.33).toInt()), 1, layoutManager) {
+        start_recyclerview.addOnScrollListener(object : InfiniteScrollListener(QUOTE_LIMIT_PER_PAGE, 1, layoutManager) {
             override fun onScrolledToEnd(firstVisibleItemPosition: Int) {
                 i { "hit the limit" }
                 mPresenter.fetchQuotesFromApi(QUOTE_LIMIT_PER_PAGE)
@@ -65,7 +66,7 @@ class StartActivity : BaseActivity(), StartMvpView {
     }
 
     override fun showEmpty() {
-        d { "showEmpty(): " }
+        d { ">>>>>>>> showEmpty(): " }
         start_recyclerview.visibility = View.GONE
         Toast.makeText(this, "No quotes to show...", Toast.LENGTH_SHORT).show()
 
@@ -85,7 +86,8 @@ class StartActivity : BaseActivity(), StartMvpView {
     override fun showQuotes(quotes: List<Quote>) {
         d { "showQuotes(): " }
         val mutableQuotes = quotes.toMutableList()
-        mQuotesAdapter.mQuotesList.addAll(mutableQuotes)
+        mQuotesAdapter.quotesList.clear()
+        mQuotesAdapter.quotesList.addAll(mutableQuotes)
         mQuotesAdapter.notifyDataSetChanged()
         start_recyclerview.visibility = View.VISIBLE
     }

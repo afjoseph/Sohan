@@ -8,7 +8,6 @@ import com.obaied.dingerquotes.data.local.DatabaseHelper
 import com.obaied.dingerquotes.data.model.Quote
 import com.obaied.dingerquotes.data.model.RandomImage
 import com.obaied.dingerquotes.data.remote.QuoteService
-import com.obaied.dingerquotes.data.remote.RandomImageService
 import com.obaied.dingerquotes.data.remote.ServicesHelper
 import com.obaied.dingerquotes.util.DummyDataFactory
 import io.reactivex.Observable
@@ -23,7 +22,6 @@ import org.junit.Test
 class DataManagerTest {
     lateinit var mockDatabaseHelper: DatabaseHelper
     lateinit var mockQuoteService: QuoteService
-    lateinit var mockRandomImageService: RandomImageService
     lateinit var mockServicesHelper: ServicesHelper
     private lateinit var dataManager: DataManager
 
@@ -31,9 +29,8 @@ class DataManagerTest {
     fun setup() {
         mockDatabaseHelper = mock<DatabaseHelper>()
         mockQuoteService = mock<QuoteService>()
-        mockRandomImageService = mock<RandomImageService>()
         mockServicesHelper = mock<ServicesHelper>()
-        dataManager = DataManager(mockQuoteService, mockRandomImageService, mockDatabaseHelper, mockServicesHelper)
+        dataManager = DataManager(mockQuoteService, mockDatabaseHelper, mockServicesHelper)
     }
 
     @Test
@@ -66,29 +63,29 @@ class DataManagerTest {
     fun fetchQuotesFromDb() {
         val quotes = DummyDataFactory.makeQuotes(2)
 
-        whenever(mockDatabaseHelper.fetchQuotesFromDb(any<Int>()))
+        whenever(mockDatabaseHelper.fetchQuotesFromDb())
                 .thenReturn(Observable.just(quotes))
 
         val testObserver = TestObserver<List<Quote>>()
-        dataManager.fetchQuotesFromDb(0).subscribe(testObserver)
+        dataManager.fetchQuotesFromDb().subscribe(testObserver)
 
         testObserver.assertNoErrors()
         testObserver.assertValue(quotes)
     }
-
-    @Test
-    fun fetchRandomImage() {
-        val randomImage = DummyDataFactory.makeRandomImage()
-
-        whenever(mockRandomImageService.getRandomImage())
-                .thenReturn(Single.just(randomImage))
-
-        val testObserver = TestObserver<RandomImage>()
-        dataManager.fetchRandomImage().subscribe(testObserver)
-
-        testObserver.assertNoErrors()
-        testObserver.assertValue(randomImage)
-    }
+//
+//    @Test
+//    fun fetchRandomImage() {
+//        val randomImage = DummyDataFactory.makeRandomImage()
+//
+//        whenever(mockRandomImageService.getRandomImage())
+//                .thenReturn(Single.just(randomImage))
+//
+//        val testObserver = TestObserver<RandomImage>()
+//        dataManager.fetchRandomImage().subscribe(testObserver)
+//
+//        testObserver.assertNoErrors()
+//        testObserver.assertValue(randomImage)
+//    }
 
     //TODO: Test When Quote API fails
     //TODO: Test When RandomImage API fails

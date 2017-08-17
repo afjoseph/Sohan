@@ -62,7 +62,7 @@ class DatabaseHelperTest {
         dbOpenHelper.setQuotesToDb(quotes).subscribe()
 
         val testObserver = TestObserver<List<Quote>>()
-        dbOpenHelper.fetchQuotesFromDb(0).subscribe(testObserver)
+        dbOpenHelper.fetchQuotesFromDb().subscribe(testObserver)
 
         testObserver.assertNoErrors()
         testObserver.assertValue(quotes)

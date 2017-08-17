@@ -6,7 +6,6 @@ import com.obaied.dingerquotes.GlobalApplication
 import com.obaied.dingerquotes.data.DataManager
 import com.obaied.dingerquotes.data.local.DatabaseHelper
 import com.obaied.dingerquotes.data.remote.QuoteService
-import com.obaied.dingerquotes.data.remote.RandomImageService
 import com.obaied.dingerquotes.data.remote.ServicesHelper
 import dagger.Component
 import com.obaied.dingerquotes.injection.ForApplication
@@ -27,8 +26,6 @@ interface ApplicationComponent {
     fun dataManager(): DataManager
 
     fun quoteService(): QuoteService
-
-    fun randomImageService(): RandomImageService
 
     fun databaseHelper(): DatabaseHelper
 

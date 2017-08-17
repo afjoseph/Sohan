@@ -50,10 +50,10 @@ class StartPresenterTest {
     fun fetchQuotes_normal() {
         val quotes = DummyDataFactory.makeQuotes(10)
 
-        whenever(mockDataManager.fetchQuotesFromDb(any<Int>()))
+        whenever(mockDataManager.fetchQuotesFromDb())
                 .thenReturn(Observable.just(quotes))
 
-        startPresenter.subscribeToDbToFetchQuotes(0)
+        startPresenter.subscribeToDbToFetchQuotes()
         verify(mockStartMvpView).showQuotes(quotes)
         verify(mockStartMvpView, never()).showEmpty()
         verify(mockStartMvpView, never()).showError(any<String>())
@@ -61,10 +61,10 @@ class StartPresenterTest {
 
     @Test
     fun fetchQuotes_empty() {
-        whenever(mockDataManager.fetchQuotesFromDb(any<Int>()))
+        whenever(mockDataManager.fetchQuotesFromDb())
                 .thenReturn(Observable.just(Collections.emptyList()))
 
-        startPresenter.subscribeToDbToFetchQuotes(0)
+        startPresenter.subscribeToDbToFetchQuotes()
         verify(mockStartMvpView).showEmpty()
         verify(mockStartMvpView, never()).showQuotes(any<List<Quote>>())
         verify(mockStartMvpView, never()).showError(any<String>())
@@ -72,10 +72,10 @@ class StartPresenterTest {
 
     @Test
     fun fetchQuotes_fail() {
-        whenever(mockDataManager.fetchQuotesFromDb(any<Int>()))
+        whenever(mockDataManager.fetchQuotesFromDb())
                 .thenReturn(Observable.error(RuntimeException()))
 
-        startPresenter.subscribeToDbToFetchQuotes(0)
+        startPresenter.subscribeToDbToFetchQuotes()
         verify(mockStartMvpView).showError(any<String>())
         verify(mockStartMvpView, never()).showQuotes(any<List<Quote>>())
         verify(mockStartMvpView, never()).showEmpty()

@@ -45,7 +45,8 @@
                 android:id="@+id/quote_imageview_shade"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@color/transparent_black"
+                android:alpha="0.6"
+                android:src="@color/black"
                 />
 
             <TextView
