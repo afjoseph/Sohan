@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import static com.crashlytics.android.core.CrashlyticsCore.TAG;
+
 /**
  * InfiniteScrollListener, which can be added to RecyclerView with addOnScrollListener
  * to detect moment when RecyclerView was scrolled to the end.

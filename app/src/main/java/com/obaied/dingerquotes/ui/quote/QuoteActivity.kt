@@ -101,14 +101,14 @@ class QuoteActivity : BaseActivity(), QuoteMvpView {
 //            quote_textview_quote.setTextColor(Colour.blackOrWhiteContrastingColor(colorFilter))
 //        }
 
-        imageTag?.let {
-            val (width, height) = DisplayMetricsUtil.getScreenMetrics()
-            Glide.with(this)
-                    .load("https://unsplash.it/$width/$height/?image=$imageTag")
-                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                    .crossFade()
-                    .into(quote_imageview_cover)
-        }
+//        imageTag?.let {
+//            val (width, height) = DisplayMetricsUtil.getScreenMetrics()
+//            Glide.with(this)
+//                    .load("https://unsplash.it/$width/$height/?image=$imageTag")
+//                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+//                    .crossFade()
+//                    .into(quote_imageview_cover)
+//        }
     }
 
     companion object {
@@ -119,8 +119,8 @@ class QuoteActivity : BaseActivity(), QuoteMvpView {
         fun getStartIntent(context: Context, quote: Quote): Intent {
             val intent = Intent(context, QuoteActivity::class.java)
             intent.putExtra(EXTRA_QUOTE, quote)
-            intent.putExtra(EXTRA_IMAGE_TAG, quote.imageTag!!)
-            intent.putExtra(EXTRA_COLOR_FILTER, quote.colorFilter!!)
+//            intent.putExtra(EXTRA_IMAGE_TAG, quote.imageTag!!)
+//            intent.putExtra(EXTRA_COLOR_FILTER, quote.colorFilter!!)
 
             return intent
         }
