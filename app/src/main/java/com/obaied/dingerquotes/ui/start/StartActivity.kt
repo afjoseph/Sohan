@@ -50,26 +50,60 @@ class StartActivity : BaseActivity(), StartMvpView {
         mPresenter.subscribeToDbToFetchQuotes()
     }
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+
+        outState?.putParcelable(KEY_SCROLL_STATE, start_recyclerview.layoutManager.onSaveInstanceState())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val parcelable = savedInstanceState?.getParcelable<Parcelable>(KEY_SCROLL_STATE)
+        if (parcelable != null) {
+            this.scrollState = parcelable
+        }
+    }
+
     private fun setupViews() {
+        //Clicklistener for quotes adapter
         mQuotesAdapter.clickListener = object : QuotesAdapter.ClickListener {
             override fun onClick(quote: Quote) {
                 startActivity(QuoteActivity.getStartIntent(this@StartActivity, quote))
             }
         }
 
+        //Recyclerview
         val layoutManager: LinearLayoutManager = getLayoutManager() as LinearLayoutManager
         start_recyclerview.layoutManager = layoutManager
         start_recyclerview.setHasFixedSize(true)
         start_recyclerview.adapter = mQuotesAdapter
-//        start_recyclerview.addOnScrollListener(object : InfiniteScrollListener(QUOTE_LIMIT_PER_PAGE - ((QUOTE_LIMIT_PER_PAGE * 0.33).toInt()), 1, layoutManager) {
         start_recyclerview.addOnScrollListener(object : InfiniteScrollListener(QUOTE_LIMIT_PER_PAGE, 1, layoutManager) {
             override fun onScrolledToEnd(firstVisibleItemPosition: Int) {
                 i { "hit the limit" }
                 mPresenter.fetchQuotesFromApi(QUOTE_LIMIT_PER_PAGE)
             }
         })
+        start_recyclerview.addOnScrollListener(ColorScrollListener(object : ColorScrollListener.ColorDyCallback {
+            override fun onChangeColor(newStartColor: Int, newCenterColor: Int, newEndColor: Int) {
+                gradient?.colors = intArrayOf(newStartColor, newCenterColor, newEndColor)
+            }
+        }))
         start_recyclerview.addItemDecoration(DividerItemDecoration(start_recyclerview.context,
                 layoutManager.orientation))
+
+        //Swipe to refresh
+        start_swipetorefresh.setOnRefreshListener {
+            d { "refreshing..." }
+            mPresenter.fetchQuotesFromDb()
+        }
+
+        start_swipetorefresh.setColorSchemeColors(Colour.holoBlueBrightColor(), Colour.holoGreenLightColor(), Colour.holoOrangeLightColor(), Colour.holoRedLightColor())
+        start_swipetorefresh.isEnabled = false
+
+        //Gradient
+        gradient = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(Colour.WHITE, Colour.WHITE, Colour.WHITE))
+        start_layout_gradient.background = gradient
     }
 
     private fun getLayoutManager(): RecyclerView.LayoutManager {
