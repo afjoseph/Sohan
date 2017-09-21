@@ -40,6 +40,8 @@ class DataManagerTest {
 
     @Test
     fun fetchQuotesFromApi() {
+        //Prepare
+        //====================
         val quotes = DummyDataFactory.makeQuotes(2)
         val listOfSingleQuotes = listOf<Single<Quote>>(
                 Single.just(quotes[0]),
@@ -52,8 +54,13 @@ class DataManagerTest {
         whenever(mockServicesHelper.getListOfQuotes(any<Int>()))
                 .thenReturn(listOfSingleQuotes)
 
+        //Execute
+        //====================
         val testObserver = TestObserver<Quote>()
         dataManager.fetchQuotesFromApi(any<Int>()).subscribe(testObserver)
+
+        //Assert
+        //====================
         testObserver.assertNoErrors()
         testObserver.assertValues(quotes[0], quotes[1])
         testObserver.assertValueCount(2)
