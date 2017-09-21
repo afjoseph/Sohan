@@ -33,6 +33,10 @@
             android:name=".ui.quote.QuoteActivity"
             android:label="Quote"
             android:theme="@style/AppTheme.QuoteActivity"/>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e1ffdc87b2dcdf6ad481fff17f3b7972b7c36678" />
     </application>
 
 </manifest>
