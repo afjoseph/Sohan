@@ -84,20 +84,5 @@ class StartPresenter
                         onError = { mvpView?.showError("No internet connection") },
                         onComplete = { d { "onComplete(): done with fetching quotes from api" } }
                 )
-//                .subscribe(Consumer<Quote> {
-//                }, Consumer<Throwable> {
-//                    e(it, { "fetchQuotesFromApi(): PINEAPPLE Received error" })
-////
-////                    var error: String = "error"
-////                    if (it is SocketTimeoutException) {
-////                        error = " | Timed out | "
-////                    }
-////
-////                    error += it.message
-////
-////                    mvpView?.hideProgress()
-////                    mvpView?.showError(error)
-//                }, Action { d { "done server fetch" } }
-//                )
     }
 }
