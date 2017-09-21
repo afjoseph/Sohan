@@ -5,8 +5,13 @@ import com.obaied.dingerquotes.data.model.Quote
 import com.obaied.dingerquotes.data.remote.QuoteService
 import com.obaied.dingerquotes.data.remote.ServicesHelper
 import com.obaied.dingerquotes.util.d
+import com.obaied.dingerquotes.util.e
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.functions.Function
+import io.reactivex.rxkotlin.subscribeBy
+import java.io.IOException
+import java.net.SocketTimeoutException
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,20 +25,21 @@ class DataManager
 @Inject constructor(val quoteService: QuoteService,
                     val databaseHelper: DatabaseHelper,
                     val servicesHelper: ServicesHelper) {
-    val random = Random()
+    private val random = Random()
     fun fetchQuotesFromDb(): Observable<List<Quote>> {
         return databaseHelper.fetchQuotesFromDb()
     }
 
-    fun fetchQuotesFromApi(limit: Int): Observable<Quote> {
+    fun fetchQuotesFromApi(limit: Int): Observable<List<Quote>> {
         val listOfSingleQuotes: List<Single<Quote>> = servicesHelper.getListOfQuotes(limit)
-        d { "size of listOfSingleQuotes: ${listOfSingleQuotes.size}" }
 
-        val observable: Observable<Quote> = Observable.create<List<Quote>> {
+        val observable: Observable<List<Quote>> = Observable.create<List<Quote>> {
             val allQuotes = listOfSingleQuotes
                     .map {
                         it
-                                .onErrorReturnItem(Quote("", ""))
+                                .onErrorReturn {
+                                    Quote("", "")
+                                }
                                 .blockingGet()
                     }
                     .toMutableList()
