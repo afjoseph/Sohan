@@ -13,7 +13,7 @@ import com.obaied.dingerquotes.injection.module.ActivityModule
 
 open class BaseActivity : AppCompatActivity() {
     private var mActivityComponent: ActivityComponent? = null
-    protected var isAttachToWindow = false
+    private var isAttachToWindow = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
