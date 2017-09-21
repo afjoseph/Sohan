@@ -7,9 +7,12 @@ import com.obaied.dingerquotes.ui.base.BasePresenter
 import com.obaied.dingerquotes.util.Schedulers.SchedulerProvider
 import com.obaied.dingerquotes.util.d
 import com.obaied.dingerquotes.util.e
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.subjects.PublishSubject
 import java.net.SocketTimeoutException
 import java.util.*
 import javax.inject.Inject
@@ -23,6 +26,8 @@ class StartPresenter
                     compositeDisposable: CompositeDisposable,
                     schedulerProvider: SchedulerProvider)
     : BasePresenter<StartMvpView>(dataManager, compositeDisposable, schedulerProvider) {
+    val retrySubject = PublishSubject.create<Any>()
+
     fun subscribeToDbToFetchQuotes() {
         d { "subscribeToDbToFetchQuotes(): " }
 
@@ -32,6 +37,7 @@ class StartPresenter
         mCompositeDisposable.add(mDataManager.fetchQuotesFromDb()
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
+//                .retryWhen { it.flatMap { retrySubject } }
                 .subscribe(Consumer<List<Quote>> {
                     d { "subscribeToDbToFetchQuotes(): Received quotes: ${it.size}" }
                     mvpView?.hideProgress()
@@ -56,53 +62,12 @@ class StartPresenter
                     mvpView?.hideProgress()
                     mvpView?.showError(error)
                 }
-                ))
+                )
+        )
+    }
 
-//        mCompositeDisposable.add(mDataManager.fetchRandomImagesFromApi(limit)
-//                .subscribeOn(mSchedulerProvider.io())
-//                .subscribeBy(
-//                        onNext = { d { "received new quote: $it" } },
-//                        onError = { d { "Error occurred: ${it.printStackTrace()}" } },
-//                        onComplete = { d { "done server update" } }
-//                ))
-
-//                .subscribe(Consumer<List<RandomImage>> { images ->
-//                    d { "subscribeToDbToFetchQuotes(): Received images: ${images.size}" }
-//
-//                    if (images.isEmpty()) {
-//                        return@Consumer
-//                    }
-//
-//                    for (image in images) {
-//                        d { "quote's image url: ${image.url}" }
-//                    }
-//
-//                    //TODO: Assing an image_url to each quote
-//                    //TODO: then, simply use the image_url from the quote to the RecyclerView and the
-//                    // QuoteActivity.
-//
-//                    (0 until quotes.size)
-//                            .filter { quotes[it].imageTag == null }
-//                            .filter { it < images.size }
-//                            .forEach { quotes[it].imageTag = images[it].url }
-//
-////                    mvpView?.showQuotes(quotes)
-//
-//                }, Consumer<Throwable> {
-//                    e(it, { "subscribeToDbToFetchQuotes(): Received error" })
-//
-//                    var error: String = "error"
-//                    if (it is SocketTimeoutException) {
-//                        error = " | Timed out | "
-//                    }
-//
-//                    error += it.message
-//
-//                    mvpView?.hideProgress()
-//                    mvpView?.showError(error)
-//                }
-//                ))
-
+    fun fetchQuotesFromDb() {
+        retrySubject.onNext(1)
     }
 
     fun fetchQuotesFromApi(limit: Int) {
@@ -110,10 +75,29 @@ class StartPresenter
         // whatever I push here would be updated there
         mDataManager.fetchQuotesFromApi(limit)
                 .subscribeOn(mSchedulerProvider.io())
+                .observeOn(mSchedulerProvider.ui())
                 .subscribeBy(
-                        onNext = { },
-                        onError = { d { "Error occurred: ${it.printStackTrace()}" } },
-                        onComplete = { d { "done server fetch" } }
+                        onNext = {
+                            mDataManager.setQuotesToDb(it)
+                                    .subscribe({}, {}, { d { "Done server set" } })
+                        },
+                        onError = { mvpView?.showError("No internet connection") },
+                        onComplete = { d { "onComplete(): done with fetching quotes from api" } }
                 )
+//                .subscribe(Consumer<Quote> {
+//                }, Consumer<Throwable> {
+//                    e(it, { "fetchQuotesFromApi(): PINEAPPLE Received error" })
+////
+////                    var error: String = "error"
+////                    if (it is SocketTimeoutException) {
+////                        error = " | Timed out | "
+////                    }
+////
+////                    error += it.message
+////
+////                    mvpView?.hideProgress()
+////                    mvpView?.showError(error)
+//                }, Action { d { "done server fetch" } }
+//                )
     }
 }
