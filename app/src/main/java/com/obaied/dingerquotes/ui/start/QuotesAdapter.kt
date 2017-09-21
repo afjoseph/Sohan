@@ -60,47 +60,47 @@ class QuotesAdapter
             itemView.setOnClickListener { clickListener!!.onClick(quote) }
 
 //            Colorfilter value is saved in memory, not synced with DB
-            val bgColor: Int
-            if (quote.colorFilter != null) {
-                bgColor = quote.colorFilter as Int
-            } else {
-                bgColor = Colour.getRandomNiceColor()
-            }
+//            val bgColor: Int
+//            if (quote.colorFilter != null) {
+//                bgColor = quote.colorFilter as Int
+//            } else {
+//                bgColor = Colour.getRandomNiceColor()
+//            }
 
-            itemView.item_quote_imageview_shade.setColorFilter(bgColor)
-            itemView.item_quote_textview_quote.setTextColor(Colour.blackOrWhiteContrastingColor(bgColor))
-            quote.colorFilter = bgColor
+//            itemView.item_quote_imageview_shade.setColorFilter(bgColor)
+//            itemView.item_quote_textview_quote.setTextColor(Colour.blackOrWhiteContrastingColor(bgColor))
+//            quote.colorFilter = bgColor
+//
+//            val (width, height) = DisplayMetricsUtil.getScreenMetrics()
 
-            val (width, height) = DisplayMetricsUtil.getScreenMetrics()
-
-            Glide.with(itemView.context)
-                    .load("https://unsplash.it/$width/$height/?image=${quote.imageTag}")
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .crossFade()
-                    .listener(object : RequestListener<String, GlideDrawable> {
-                        override fun onResourceReady(resource: GlideDrawable?, model: String?, target: Target<GlideDrawable>?, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
-                            itemView.item_quote_imageview_shade.setColorFilter(Colour.BLACK)
-                            itemView.item_quote_textview_quote.setTextColor(Colour.WHITE)
-                            savedImageTags.add(quote.imageTag!!)
-                            return false
-                        }
-
-                        override fun onException(e: Exception?, model: String?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
-                            if (savedImageTags.size <= 1) {
-                                return false
-                            }
-
-                            val randomTag = savedImageTags[Random().nextInt(savedImageTags.size)]
-                            Glide.with(itemView.context)
-                                    .load("https://unsplash.it/$width/$height/?image=$randomTag")
-                                    .into(itemView.item_quote_imageview_cover)
-
-                            return false
-                        }
-
-                    })
-                    .into(itemView.item_quote_imageview_cover)
+//            Glide.with(itemView.context)
+//                    .load("https://unsplash.it/$width/$height/?image=${quote.imageTag}")
+//                    .centerCrop()
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .crossFade()
+//                    .listener(object : RequestListener<String, GlideDrawable> {
+//                        override fun onResourceReady(resource: GlideDrawable?, model: String?, target: Target<GlideDrawable>?, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
+//                            itemView.item_quote_imageview_shade.setColorFilter(Colour.BLACK)
+//                            itemView.item_quote_textview_quote.setTextColor(Colour.WHITE)
+//                            savedImageTags.add(quote.imageTag!!)
+//                            return false
+//                        }
+//
+//                        override fun onException(e: Exception?, model: String?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
+//                            if (savedImageTags.size <= 1) {
+//                                return false
+//                            }
+//
+//                            val randomTag = savedImageTags[Random().nextInt(savedImageTags.size)]
+//                            Glide.with(itemView.context)
+//                                    .load("https://unsplash.it/$width/$height/?image=$randomTag")
+//                                    .into(itemView.item_quote_imageview_cover)
+//
+//                            return false
+//                        }
+//
+//                    })
+//                    .into(itemView.item_quote_imageview_cover)
 
         }
     }
