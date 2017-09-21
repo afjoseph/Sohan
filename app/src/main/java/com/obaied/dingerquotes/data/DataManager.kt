@@ -45,17 +45,24 @@ class DataManager
                     .toMutableList()
                     .filter { !it.author.isEmpty() || !it.text.isEmpty() }
 
-            //Assign a random tag for each image
-            //PS: This is hardcoded to Unsplash.it's current number of images (1050)
-            for (quote in allQuotes) {
-                quote.imageTag = random.nextInt(1050).toString()
+            if (allQuotes.isEmpty()) {
+                it.onError(Throwable())
             }
 
-            d { "size of allQuotes: ${allQuotes.size}" }
+            //Assign a random tag for each image
+            //PS: This is hardcoded to Unsplash.it's current number of images (1050)
+//            for (quote in allQuotes) {
+//                quote.imageTag = random.nextInt(1050).toString()
+//            }
+
             it.onNext(allQuotes)
             it.onComplete()
-        }.concatMap { databaseHelper.setQuotesToDb(it) }
+        }
 
         return observable
+    }
+
+    fun setQuotesToDb(quotes: Collection<Quote>): Observable<Quote> {
+        return databaseHelper.setQuotesToDb(quotes)
     }
 }
