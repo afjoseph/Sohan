@@ -111,9 +111,7 @@ class StartActivity : BaseActivity(), StartMvpView {
     }
 
     override fun showEmpty() {
-        d { ">>>>>>>> showEmpty(): " }
-        start_recyclerview.visibility = View.GONE
-        Toast.makeText(this, "No quotes to show...", Toast.LENGTH_SHORT).show()
+//        start_recyclerview.visibility = View.GONE
 
         mPresenter.fetchQuotesFromApi(QUOTE_LIMIT_PER_PAGE)
     }
@@ -129,16 +127,21 @@ class StartActivity : BaseActivity(), StartMvpView {
     }
 
     override fun showQuotes(quotes: List<Quote>) {
-        d { "showQuotes(): " }
+        start_swipetorefresh.isRefreshing = false
+
         val mutableQuotes = quotes.toMutableList()
         mQuotesAdapter.quotesList.clear()
         mQuotesAdapter.quotesList.addAll(mutableQuotes)
         mQuotesAdapter.notifyDataSetChanged()
         start_recyclerview.visibility = View.VISIBLE
+
+        if (scrollState != null) {
+            start_recyclerview.layoutManager.onRestoreInstanceState(scrollState)
+        }
     }
 
     override fun showError(error: String) {
-        d { "showError(): " }
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+        start_swipetorefresh.isRefreshing = false
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 }
