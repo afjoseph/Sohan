@@ -110,8 +110,6 @@ class StartActivity : BaseActivity(), StartMvpView {
     }
 
     override fun showEmpty() {
-//        start_recyclerview.visibility = View.GONE
-
         mPresenter.fetchQuotesFromApi(QUOTE_LIMIT_PER_PAGE)
     }
 
