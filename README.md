@@ -70,6 +70,79 @@ The _Remote_ category contains Retrofit2 Services. There's nothing too special a
 
 One interesting class which I add to this _Remote_ category is called _ServicesHelper_. The problem with RetroFit2 Services is that they are interfaces. I don't like to include logic in interfaces, even if Kotlin or Java 8 allows it to an extent. Sometimes, its helpful to handle the data coming from the API in a certain way and it would be necessary to have that behaviour abstracted to a class that can be mocked with Mockito. In the case of my project, I had a quotes API that gets a single quote only. I needed to a list of quotes to have an infinite scroller behaviour. Ideally, I'd ask the backend to make an extra endpoint that serves my needs, but that won't happen with a public API, so I had to make the API call multiple times and concatenate the result. Luckily, I'm using Rx which makes the job a lot easier. I used _ServicesHelper_ to write a piece of unit-tested and mockable logic that would serve multiple quotes instead of one.
 
+### Data: Chaining observables and handling errors
+So what I need to do to get quotes to show up on the screen is simple:
+- Fetch quotes from database
+- If database is empty (first launch), fetch quotes from API
+- set the fetched quotes from API to the database
+
+Here's how it looks like:
+
+```kotlin
+    //Inside StartPresenter.kt
+    fun subscribeToDbToFetchQuotes() {
+        d { "subscribeToDbToFetchQuotes(): " }
+
+        checkViewAttached()
+        mvpView?.showProgress()
+
+        mCompositeDisposable.add(mDataManager.fetchQuotesFromDb()
+                .subscribeOn(mSchedulerProvider.io())
+                .observeOn(mSchedulerProvider.ui())
+                .subscribe(Consumer<List<Quote>> {
+                    d { "subscribeToDbToFetchQuotes(): Received quotes: ${it.size}" }
+                    mvpView?.hideProgress()
+
+                    if (it.isEmpty()) {
+                        mvpView?.showEmpty()
+                        return@Consumer
+                    }
+
+                    mvpView?.showQuotes(it)
+
+                }, Consumer<Throwable> {
+                    e(it, { "subscribeToDbToFetchQuotes(): Received error" })
+
+                    mvpView?.hideProgress()
+                    mvpView?.showError(it.message!!)
+                }
+                )
+        )
+    }
+
+    //Inside StartPresenter.kt
+    fun fetchQuotesFromApi(limit: Int) {
+        //since subscribeToDbToFetchQuotes is subscribed to SqlBrite's SELECT statement,
+        // whatever I push here would be updated there
+        mDataManager.fetchQuotesFromApi(limit)
+                .subscribeOn(mSchedulerProvider.io())
+                .observeOn(mSchedulerProvider.ui())
+                .onErrorResumeNext(Function { Observable.error<List<Quote>>(it) }) //OnErrorResumeNext and Observable.error() would propagate the error to the next level. So, whatever error occurs here, would get passed to onError() on the UI side
+                .flatMap { t: List<Quote> ->
+                    //Chain observable as such
+                    mDataManager.setQuotesToDb(t).subscribe({}, { e { "setQuotesToDb() error occurred: ${it.localizedMessage}" } }, { d { "Done server set" } })
+                    Observable.just(t)
+                }
+                .subscribeBy(
+                        onNext = {},
+                        onError = { mvpView?.showError("No internet connection") },
+                        onComplete = { d { "onComplete(): done with fetching quotes from api" } }
+                )
+    }
+
+    //Inside StartActivity.kt
+    override fun showEmpty() {
+        mPresenter.fetchQuotesFromApi(QUOTE_LIMIT_PER_PAGE)
+    }
+```
+#### Quick explanation
+* `SubscribeToDbToFetchQuotes()` handled subscription to Db. If the data coming back from the database is empty, then we would call `fetchQuotesFromApi()` from `showEmpty()` method.
+* Inside `fetchQuotesFromApi()`, we try to fetch some data (quotes in this example) from an api with `mDataManager.fetchQuotesFromApi()`
+* We subscribe the observable to do stuff on `.io()` thread and show results on `.ui()` thread.
+* `onErrorResumeNext()` makes sure that whatever error we encounter from fetching data is caught in this method. I wanna terminate the entire chain when there is an error there, so I return an `Observable.error()`
+* `.flatmap()` is the chaining part. I wanna be able to set whatever data I get from the API to my database. I'm not transforming the data I received using `.map()`, I'm simply doing _something else_ with that data **without** transforming it.
+* I subscribe to the last chain of observables. If an error occurred with fetching data (first observable), it would be handled (in this case, propagated to the subscribed `onError()`) with `onErrorResumeNext()`
+* I am very conscious that I'm subscribing to the DB observable (inside `flatmap()`). Any error that occurs through this observable will **NOT** be propagated to the last `subscribeBy()` methods, since it is handled inside the `subscribe()` method inside the `.flatmap()` chain.
 
 ### Handling Unit Tests
 Whenever there was a need for `context`, I'd use *RobolectricTestRunner* as a jUnit test runner and supply `RuntimeEnvironment.application` as context.
