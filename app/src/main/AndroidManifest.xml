@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.obaied.dingerquotes">
+          package="com.obaied.sohan">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-        android:name=".GlobalApplication"
+        android:name="com.obaied.sohan.GlobalApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
         <activity
-            android:name=".ui.start.StartActivity"
+            android:name="com.obaied.sohan.ui.start.StartActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             >
@@ -30,13 +29,13 @@
         </activity>
 
         <activity
-            android:name=".ui.quote.QuoteActivity"
+            android:name="com.obaied.sohan.ui.quote.QuoteActivity"
             android:label="Quote"
             android:theme="@style/AppTheme.QuoteActivity"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="e1ffdc87b2dcdf6ad481fff17f3b7972b7c36678" />
+            android:value="e1ffdc87b2dcdf6ad481fff17f3b7972b7c36678"/>
     </application>
 
 </manifest>

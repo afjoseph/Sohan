@@ -1,4 +1,4 @@
-# Dinger-kotlin
+# Sohan
 Simple client-server app, made with MVP and Kotlin. The idea is for this to be used as a boilerplate project for client-server apps and a reference on how to use the below libraries with Kotlin. Inspiration is taken from the [ribot's android-boilerplate](https://github.com/ribot/android-boilerplate/) project.
 Libraries and tools included:
 

@@ -48,7 +48,8 @@
                 android:layout_height="match_parent"
                 android:alpha="0.1"
                 android:src="@color/black"
-                />
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"/>
 
             <TextView
                 android:id="@+id/quote_textview_quote"
@@ -86,8 +87,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
+        android:tint="#8a99c7"
         android:layout_margin="@dimen/main_margin_fap"
-        android:src="@android:drawable/ic_menu_share"
+        android:src="@drawable/ic_share"
         app:fabSize="auto"
         app:layout_anchorGravity="bottom|right|end"/>
 

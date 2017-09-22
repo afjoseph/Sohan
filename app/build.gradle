@@ -8,7 +8,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.obaied.dingerquotes"
+        applicationId "com.obaied.sohan"
         minSdkVersion 18
         targetSdkVersion 26
         versionCode 1
@@ -36,7 +36,6 @@ dependencies {
     final RXANDROID_VERSION = '2.0.1'
     final TIMBER_VERSION = '4.1.0'
     final ESPRESSO_VERSION = '2.2.2'
-    final HTEXTVIEW_VERSION = '0.1.1'
     final JUNIT_VERSION = '4.12'
     final MOCKITO2_VERSION = '2.1.0'
     final SQLBRITE_VERSION = '2.0.0'
