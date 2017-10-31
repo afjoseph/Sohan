@@ -1,7 +1,7 @@
 @file:Suppress("unused")
 @file:JvmName("Logger")
 
-package com.obaied.sohan.util
+package com.joseph.sohan.util
 
 import timber.log.Timber
 

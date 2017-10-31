@@ -1,11 +1,11 @@
-package com.obaied.sohan.ui.base
+package com.joseph.sohan.ui.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.obaied.sohan.GlobalApplication
-import com.obaied.sohan.injection.component.ActivityComponent
-import com.obaied.sohan.injection.component.DaggerActivityComponent
-import com.obaied.sohan.injection.module.ActivityModule
+import com.joseph.sohan.GlobalApplication
+import com.joseph.sohan.injection.component.ActivityComponent
+import com.joseph.sohan.injection.component.DaggerActivityComponent
+import com.joseph.sohan.injection.module.ActivityModule
 
 /**
  * Created by ab on 19/03/2017.

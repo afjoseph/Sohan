@@ -1,9 +1,9 @@
-package com.obaied.sohan
+package com.joseph.sohan
 
 import android.app.Application
-import com.obaied.sohan.injection.component.ApplicationComponent
-import com.obaied.sohan.injection.component.DaggerApplicationComponent
-import com.obaied.sohan.injection.module.ApplicationModule
+import com.joseph.sohan.injection.component.ApplicationComponent
+import com.joseph.sohan.injection.component.DaggerApplicationComponent
+import com.joseph.sohan.injection.module.ApplicationModule
 import timber.log.Timber
 import android.os.StrictMode
 
@@ -12,6 +12,10 @@ import android.os.StrictMode
  */
 
 class GlobalApplication : Application() {
+    companion object {
+        lateinit var globalApp: GlobalApplication
+    }
+
     internal var mApplicationComponent: ApplicationComponent? = null
         get
 
@@ -31,16 +35,9 @@ class GlobalApplication : Application() {
 
         mApplicationComponent?.inject(this)
 
-//        JobManager.create(this)
-//                .addJobCreator(jobCreator)
-
         //Ignore URI exposure
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
-    }
-
-    companion object {
-        lateinit var globalApp: GlobalApplication
     }
 }
 

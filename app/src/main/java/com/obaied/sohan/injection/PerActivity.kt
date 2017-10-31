@@ -1,4 +1,4 @@
-package com.obaied.sohan.injection
+package com.joseph.sohan.injection
 
 import javax.inject.*
 

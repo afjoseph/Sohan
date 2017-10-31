@@ -1,8 +1,8 @@
-package com.obaied.sohan.data.local
+package com.joseph.sohan.data.local
 
 import android.content.ContentValues
 import android.database.Cursor
-import com.obaied.sohan.data.model.Quote
+import com.joseph.sohan.data.model.Quote
 
 /**
  * Created by ab on 06.08.17.

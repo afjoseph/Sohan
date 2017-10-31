@@ -1,10 +1,10 @@
-package com.obaied.sohan
+package com.joseph.sohan
 
 import com.nhaarman.mockito_kotlin.*
-import com.obaied.sohan.data.DataManager
-import com.obaied.sohan.ui.quote.QuoteMvpView
-import com.obaied.sohan.ui.quote.QuotePresenter
-import com.obaied.sohan.util.Schedulers.TestSchedulerProvider
+import com.joseph.sohan.data.DataManager
+import com.joseph.sohan.ui.quote.QuoteMvpView
+import com.joseph.sohan.ui.quote.QuotePresenter
+import com.joseph.sohan.util.Schedulers.TestSchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import org.junit.After
 import org.junit.Before

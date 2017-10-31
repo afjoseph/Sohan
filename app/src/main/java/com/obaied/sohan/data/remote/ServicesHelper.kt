@@ -1,6 +1,6 @@
-package com.obaied.sohan.data.remote
+package com.joseph.sohan.data.remote
 
-import com.obaied.sohan.data.model.Quote
+import com.joseph.sohan.data.model.Quote
 import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject

@@ -6,7 +6,7 @@
     android:id="@+id/start_swipetorefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.obaied.sohan.ui.start.StartActivity">
+    tools:context="com.joseph.sohan.ui.start.StartActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

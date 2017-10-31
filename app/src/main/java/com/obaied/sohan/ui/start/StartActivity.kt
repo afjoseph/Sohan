@@ -1,4 +1,4 @@
-package com.obaied.sohan.ui.start
+package com.joseph.sohan.ui.start
 
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -9,15 +9,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
 import com.crashlytics.android.Crashlytics
-import com.obaied.colours.Colour
-import com.obaied.sohan.R
-import com.obaied.sohan.data.model.Quote
-import com.obaied.sohan.ui.base.BaseActivity
-import com.obaied.sohan.ui.custom.ColorScrollListener
-import com.obaied.sohan.ui.custom.InfiniteScrollListener
-import com.obaied.sohan.ui.quote.QuoteActivity
-import com.obaied.sohan.util.d
-import com.obaied.sohan.util.i
+import com.joseph.colours.Colour
+import com.joseph.sohan.R
+import com.joseph.sohan.data.model.Quote
+import com.joseph.sohan.ui.base.BaseActivity
+import com.joseph.sohan.ui.custom.ColorScrollListener
+import com.joseph.sohan.ui.custom.InfiniteScrollListener
+import com.joseph.sohan.ui.quote.QuoteActivity
+import com.joseph.sohan.util.d
+import com.joseph.sohan.util.i
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_start.*
 import javax.inject.Inject

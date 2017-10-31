@@ -1,4 +1,4 @@
-package com.obaied.sohan.ui.quote
+package com.joseph.sohan.ui.quote
 
 import android.Manifest
 import android.content.Context
@@ -15,10 +15,10 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
-import com.obaied.sohan.R
-import com.obaied.sohan.data.model.Quote
-import com.obaied.sohan.ui.base.BaseActivity
-import com.obaied.sohan.util.e
+import com.joseph.sohan.R
+import com.joseph.sohan.data.model.Quote
+import com.joseph.sohan.ui.base.BaseActivity
+import com.joseph.sohan.util.e
 import kotlinx.android.synthetic.main.activity_quote.*
 import javax.inject.Inject
 
@@ -109,9 +109,9 @@ class QuoteActivity : BaseActivity(), QuoteMvpView {
     }
 
     companion object {
-        val EXTRA_QUOTE = "com.obaied.sohan.ui.quote.EXTRA_QUOTE"
-        val EXTRA_IMAGE_TAG = "com.obaied.sohan.ui.quote.EXTRA_IMAGE_TAG"
-        val EXTRA_COLOR_FILTER = "com.obaied.sohan.ui.quote.EXTRA_COLOR_FILTER"
+        val EXTRA_QUOTE = "com.joseph.sohan.ui.quote.EXTRA_QUOTE"
+        val EXTRA_IMAGE_TAG = "com.joseph.sohan.ui.quote.EXTRA_IMAGE_TAG"
+        val EXTRA_COLOR_FILTER = "com.joseph.sohan.ui.quote.EXTRA_COLOR_FILTER"
 
         fun getStartIntent(context: Context, quote: Quote): Intent {
             val intent = Intent(context, QuoteActivity::class.java)

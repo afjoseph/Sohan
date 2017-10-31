@@ -1,4 +1,4 @@
-package com.obaied.sohan.util
+package com.joseph.sohan.util
 
 import android.content.res.Resources
 

@@ -1,9 +1,9 @@
-package com.obaied.sohan.data.local
+package com.joseph.sohan.data.local
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.obaied.sohan.injection.ForApplication
+import com.joseph.sohan.injection.ForApplication
 import javax.inject.Inject
 import javax.inject.Singleton
 

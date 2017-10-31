@@ -1,7 +1,7 @@
-package com.obaied.sohan.util
+package com.joseph.sohan.util
 
-import com.obaied.sohan.data.model.Quote
-import com.obaied.sohan.data.model.RandomImage
+import com.joseph.sohan.data.model.Quote
+import com.joseph.sohan.data.model.RandomImage
 import java.util.*
 
 /**

@@ -1,4 +1,4 @@
-package com.obaied.colours;
+package com.joseph.colours;
 
 import android.graphics.Color;
 

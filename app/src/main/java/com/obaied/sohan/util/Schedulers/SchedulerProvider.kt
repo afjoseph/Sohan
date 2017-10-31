@@ -1,4 +1,4 @@
-package com.obaied.sohan.util.Schedulers
+package com.joseph.sohan.util.Schedulers
 
 import io.reactivex.Scheduler
 

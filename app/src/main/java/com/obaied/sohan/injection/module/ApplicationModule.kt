@@ -1,11 +1,11 @@
-package com.obaied.sohan.injection.module
+package com.joseph.sohan.injection.module
 
 import android.app.*
 import android.content.*
-import com.obaied.sohan.data.remote.QuoteService
-import com.obaied.sohan.injection.ForApplication
-import com.obaied.sohan.util.Schedulers.AppSchedulerProvider
-import com.obaied.sohan.util.Schedulers.SchedulerProvider
+import com.joseph.sohan.data.remote.QuoteService
+import com.joseph.sohan.injection.ForApplication
+import com.joseph.sohan.util.Schedulers.AppSchedulerProvider
+import com.joseph.sohan.util.Schedulers.SchedulerProvider
 
 import javax.inject.*
 

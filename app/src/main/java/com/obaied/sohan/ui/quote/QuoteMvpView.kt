@@ -1,6 +1,6 @@
-package com.obaied.sohan.ui.quote
+package com.joseph.sohan.ui.quote
 
-import com.obaied.sohan.ui.base.MvpView
+import com.joseph.sohan.ui.base.MvpView
 
 /**
  * Created by ab on 19/03/2017.

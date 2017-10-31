@@ -10,7 +10,7 @@ Libraries and tools included:
 - Dependency injection by [Dagger 2](http://google.github.io/dagger/)
 - Logging by [Timber](https://github.com/JakeWharton/timber) with native Kotlin extensions
 - Image loading by [Glide](https://github.com/bumptech/glide)
-- complimentary and randomized colour algorithms by [Colours](https://github.com/Obaied/colours)
+- complimentary and randomized colour algorithms by [Colours](https://github.com/Joseph/colours)
 - App permissions by [Dexter](http://robolectric.org/)
 - Unit testing native Android environment by [Robolectric](http://robolectric.org/)
 - Mocking with [Mockito-Kotlin](https://github.com/nhaarman/mockito-kotlin)
@@ -256,7 +256,7 @@ To run **unit** tests on your machine:
 
 ## License
 ```
-Copyright (c) 2017 Abdullah Obaied
+Copyright (c) 2017 Abdullah Joseph
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

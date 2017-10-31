@@ -1,15 +1,15 @@
-package com.obaied.sohan.injection.component
+package com.joseph.sohan.injection.component
 
 import android.app.Application
 import android.content.Context
-import com.obaied.sohan.GlobalApplication
-import com.obaied.sohan.data.DataManager
-import com.obaied.sohan.data.local.DatabaseHelper
-import com.obaied.sohan.data.remote.QuoteService
-import com.obaied.sohan.data.remote.ServicesHelper
+import com.joseph.sohan.GlobalApplication
+import com.joseph.sohan.data.DataManager
+import com.joseph.sohan.data.local.DatabaseHelper
+import com.joseph.sohan.data.remote.QuoteService
+import com.joseph.sohan.data.remote.ServicesHelper
 import dagger.Component
-import com.obaied.sohan.injection.ForApplication
-import com.obaied.sohan.injection.module.ApplicationModule
+import com.joseph.sohan.injection.ForApplication
+import com.joseph.sohan.injection.module.ApplicationModule
 import javax.inject.Singleton
 
 @Singleton

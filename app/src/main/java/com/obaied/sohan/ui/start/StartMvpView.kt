@@ -1,7 +1,7 @@
-package com.obaied.sohan.ui.start
+package com.joseph.sohan.ui.start
 
-import com.obaied.sohan.data.model.Quote
-import com.obaied.sohan.ui.base.MvpView
+import com.joseph.sohan.data.model.Quote
+import com.joseph.sohan.ui.base.MvpView
 
 /**
  * Created by ab on 19/03/2017.

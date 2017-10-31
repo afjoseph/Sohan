@@ -1,9 +1,9 @@
-package com.obaied.sohan.injection.component
+package com.joseph.sohan.injection.component
 
-import com.obaied.sohan.injection.PerActivity
-import com.obaied.sohan.injection.module.ActivityModule
-import com.obaied.sohan.ui.quote.QuoteActivity
-import com.obaied.sohan.ui.start.StartActivity
+import com.joseph.sohan.injection.PerActivity
+import com.joseph.sohan.injection.module.ActivityModule
+import com.joseph.sohan.ui.quote.QuoteActivity
+import com.joseph.sohan.ui.start.StartActivity
 import dagger.Component
 
 /**

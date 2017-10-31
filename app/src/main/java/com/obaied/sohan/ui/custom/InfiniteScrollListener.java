@@ -1,4 +1,4 @@
-package com.obaied.sohan.ui.custom;
+package com.joseph.sohan.ui.custom;
 
 /**
  * Created by ab on 09.08.17.

@@ -1,7 +1,7 @@
-package com.obaied.sohan.ui.base
+package com.joseph.sohan.ui.base
 
-import com.obaied.sohan.data.DataManager
-import com.obaied.sohan.util.Schedulers.SchedulerProvider
+import com.joseph.sohan.data.DataManager
+import com.joseph.sohan.util.Schedulers.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 

@@ -1,9 +1,9 @@
-package com.obaied.sohan.data
+package com.joseph.sohan.data
 
-import com.obaied.sohan.data.local.DatabaseHelper
-import com.obaied.sohan.data.model.Quote
-import com.obaied.sohan.data.remote.QuoteService
-import com.obaied.sohan.data.remote.ServicesHelper
+import com.joseph.sohan.data.local.DatabaseHelper
+import com.joseph.sohan.data.model.Quote
+import com.joseph.sohan.data.remote.QuoteService
+import com.joseph.sohan.data.remote.ServicesHelper
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.*

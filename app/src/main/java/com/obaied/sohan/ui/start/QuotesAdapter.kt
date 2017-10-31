@@ -1,11 +1,11 @@
-package com.obaied.sohan.ui.start
+package com.joseph.sohan.ui.start
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.obaied.sohan.R
-import com.obaied.sohan.data.model.Quote
+import com.joseph.sohan.R
+import com.joseph.sohan.data.model.Quote
 import kotlinx.android.synthetic.main.item_quote_card.view.*
 import javax.inject.Inject
 

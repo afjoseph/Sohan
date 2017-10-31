@@ -1,8 +1,8 @@
-package com.obaied.sohan.data.remote
+package com.joseph.sohan.data.remote
 
 import com.google.gson.Gson
-import com.obaied.sohan.data.model.Quote
-import com.obaied.sohan.util.d
+import com.joseph.sohan.data.model.Quote
+import com.joseph.sohan.util.d
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

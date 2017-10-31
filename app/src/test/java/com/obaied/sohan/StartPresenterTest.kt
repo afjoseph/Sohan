@@ -1,12 +1,12 @@
-package com.obaied.sohan
+package com.joseph.sohan
 
 import com.nhaarman.mockito_kotlin.*
-import com.obaied.sohan.data.DataManager
-import com.obaied.sohan.data.model.Quote
-import com.obaied.sohan.ui.start.StartMvpView
-import com.obaied.sohan.ui.start.StartPresenter
-import com.obaied.sohan.util.DummyDataFactory
-import com.obaied.sohan.util.Schedulers.TestSchedulerProvider
+import com.joseph.sohan.data.DataManager
+import com.joseph.sohan.data.model.Quote
+import com.joseph.sohan.ui.start.StartMvpView
+import com.joseph.sohan.ui.start.StartPresenter
+import com.joseph.sohan.util.DummyDataFactory
+import com.joseph.sohan.util.Schedulers.TestSchedulerProvider
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import org.junit.After

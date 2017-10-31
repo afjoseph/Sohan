@@ -1,11 +1,11 @@
-package com.obaied.sohan.ui.start
+package com.joseph.sohan.ui.start
 
-import com.obaied.sohan.data.DataManager
-import com.obaied.sohan.data.model.Quote
-import com.obaied.sohan.ui.base.BasePresenter
-import com.obaied.sohan.util.Schedulers.SchedulerProvider
-import com.obaied.sohan.util.d
-import com.obaied.sohan.util.e
+import com.joseph.sohan.data.DataManager
+import com.joseph.sohan.data.model.Quote
+import com.joseph.sohan.ui.base.BasePresenter
+import com.joseph.sohan.util.Schedulers.SchedulerProvider
+import com.joseph.sohan.util.d
+import com.joseph.sohan.util.e
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer

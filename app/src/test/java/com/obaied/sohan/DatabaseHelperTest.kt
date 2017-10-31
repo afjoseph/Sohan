@@ -1,11 +1,11 @@
-package com.obaied.sohan
+package com.joseph.sohan
 
-import com.obaied.sohan.data.local.DatabaseHelper
-import com.obaied.sohan.data.local.Db
-import com.obaied.sohan.data.local.DbOpenHelper
-import com.obaied.sohan.data.model.Quote
-import com.obaied.sohan.util.DummyDataFactory
-import com.obaied.sohan.util.Schedulers.TestSchedulerProvider
+import com.joseph.sohan.data.local.DatabaseHelper
+import com.joseph.sohan.data.local.Db
+import com.joseph.sohan.data.local.DbOpenHelper
+import com.joseph.sohan.data.model.Quote
+import com.joseph.sohan.util.DummyDataFactory
+import com.joseph.sohan.util.Schedulers.TestSchedulerProvider
 import io.reactivex.observers.TestObserver
 import org.junit.Test
 import org.junit.runner.RunWith

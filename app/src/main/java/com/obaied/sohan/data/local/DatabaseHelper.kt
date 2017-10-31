@@ -1,9 +1,9 @@
-package com.obaied.sohan.data.local
+package com.joseph.sohan.data.local
 
-import com.obaied.sohan.data.model.Quote
-import com.obaied.sohan.data.model.RandomImage
-import com.obaied.sohan.util.Schedulers.SchedulerProvider
-import com.obaied.sohan.util.d
+import com.joseph.sohan.data.model.Quote
+import com.joseph.sohan.data.model.RandomImage
+import com.joseph.sohan.util.Schedulers.SchedulerProvider
+import com.joseph.sohan.util.d
 import com.squareup.sqlbrite2.BriteDatabase
 import com.squareup.sqlbrite2.SqlBrite
 import io.reactivex.Observable

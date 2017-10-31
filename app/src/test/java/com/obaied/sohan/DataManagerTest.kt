@@ -1,14 +1,14 @@
-package com.obaied.sohan
+package com.joseph.sohan
 
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.obaied.sohan.data.DataManager
-import com.obaied.sohan.data.local.DatabaseHelper
-import com.obaied.sohan.data.model.Quote
-import com.obaied.sohan.data.remote.QuoteService
-import com.obaied.sohan.data.remote.ServicesHelper
-import com.obaied.sohan.util.DummyDataFactory
+import com.joseph.sohan.data.DataManager
+import com.joseph.sohan.data.local.DatabaseHelper
+import com.joseph.sohan.data.model.Quote
+import com.joseph.sohan.data.remote.QuoteService
+import com.joseph.sohan.data.remote.ServicesHelper
+import com.joseph.sohan.util.DummyDataFactory
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver

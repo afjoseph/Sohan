@@ -1,4 +1,4 @@
-package com.obaied.sohan;
+package com.joseph.sohan;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.obaied.sohan", appContext.getPackageName());
+        assertEquals("com.joseph.sohan", appContext.getPackageName());
     }
 }

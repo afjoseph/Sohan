@@ -1,4 +1,4 @@
-package com.obaied.sohan.ui.custom
+package com.joseph.sohan.ui.custom
 
 /**
  * Created by ab on 09.08.17.
@@ -7,7 +7,7 @@ package com.obaied.sohan.ui.custom
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 
-import com.obaied.colours.Colour
+import com.joseph.colours.Colour
 
 /**
  * InfiniteScrollListener, which can be added to RecyclerView with addOnScrollListener
